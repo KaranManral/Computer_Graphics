@@ -8,7 +8,7 @@ const int size = 4;
 void bezier(int x[], int y[])
 {
     int gr = DETECT, gm;
-    initgraph(&gr, &gm, (char *)"C:\\TURBOC3\\BGI");
+    initgraph(&gr, &gm, (char *)"");
     double put_x, put_y;
     cout << "\nCURVE IS BEING DRAWN...";
 
@@ -34,7 +34,7 @@ void bezier(int x[], int y[])
 void hermite(int x[], int y[])
 {
     int gr = DETECT, gm;
-    initgraph(&gr, &gm, (char *)("C:\\TURBOC3\\BGI"));
+    initgraph(&gr, &gm, (char *)(""));
     double put_x, put_y;
     cout << "\nCURVE IS BEING DRAWN...";
 
@@ -61,10 +61,6 @@ int main()
 {
     int x[4], y[4];
     int choice;
-
-    cout << "\n====================================================================\n";
-    cout << "\t\tHERMITE/BEZIER CURVE (USING 4 CONTROL POINTS)";
-    cout << "\n====================================================================";
 
     do
     {

@@ -1,104 +1,38 @@
-#include <iostream>
+#include <stdio.h>
 #include <graphics.h>
-#include <stdlib.h>
-using namespace std;
-void bresenham(int x, int y, int x2, int y2)
+void drawline(int x0, int y0, int x1, int y1)
 {
-    int dx, dy;
-    int p;
-    dx = (x2 - x);
-    dy = (y2 - y);
+    int dx, dy, p, x, y;
+    dx = x1 - x0;
+    dy = y1 - y0;
+    x = x0;
+    y = y0;
     p = 2 * dy - dx;
-
-    if (dx >= 0 & dy >= 0)
+    while (x < x1)
     {
-        if (dy > dx)
+        if (p >= 0)
         {
-            if (dx == 0)
-            {
-                while (y <= y2)
-                {
-                    putpixel(x, y, GREEN);
-                    y++;
-                    if (p < 0)
-                    {
-                        p = p + 2 * dy;
-                    }
-                    else
-                    {
-                        p = p + 2 * dy - 2 * dx;
-                    }
-                }
-            }
-            else
-            {
-                while (x <= x2)
-                {
-                    putpixel(x, y, GREEN);
-                    x++;
-                    if (p < 0)
-                    {
-                        p = p + 2 * dy;
-                    }
-                    else
-                    {
-                        p = p + 2 * dy - 2 * dx;
-                        y++;
-                    }
-                }
-            }
+            putpixel(x, y, 7);
+            y = y + 1;
+            p = p + 2 * dy - 2 * dx;
         }
-        else if (dx > dy)
+        else
         {
-            while (x <= x2)
-            {
-                putpixel(x, y, GREEN);
-                x++;
-                if (p < 0)
-                {
-                    p = p + 2 * dy;
-                }
-                else
-                {
-                    p = p + 2 * dy - 2 * dx;
-                    y++;
-                }
-            }
+            putpixel(x, y, 7);
+            p = p + 2 * dy;
         }
-    }
-    else if (dy < 0 || dx < 0)
-    {
-        swap(x, x2);
-        swap(y, y2);
-        while (x > x2)
-        {
-            putpixel(x, y, GREEN);
-            x--;
-            if (p < 0)
-            {
-                p = p - 2 * dy;
-            }
-            else
-            {
-                p = p - 2 * dy - 2 * dx;
-                y++;
-            }
-        }
+        x = x + 1;
     }
 }
 int main()
 {
-    cout << "\n\n--------------------- BRESENHAM'S LINE  DRAW ALGORITHM --------------------- ";
-    int gd = DETECT, gm;
-
-    initgraph(&gd, &gm, (char *)"");
-    int x1, x2, y1, y2, num;
-
-    cout << "\n\n\nENTER THE COORDINATES VALUES x1, y1 :: ";
-    cin >> x1 >> y1;
-    cout << "\nENTER THE COORDINATES VALUES x2, y2 :: ";
-    cin >> x2 >> y2;
-    bresenham(x1, y1, x2, y2);
+    int gdriver = DETECT, gmode, error, x0, y0, x1, y1;
+    initgraph(&gdriver, &gmode, (char *)"");
+    printf("Enter co-ordinates of first point: ");
+    scanf("%d%d", &x0, &y0);
+    printf("Enter co-ordinates of second point: ");
+    scanf("%d%d", &x1, &y1);
+    drawline(x0, y0, x1, y1);
     getch();
     closegraph();
     return 0;
