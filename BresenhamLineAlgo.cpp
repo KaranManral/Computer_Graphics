@@ -1,5 +1,8 @@
-#include <stdio.h>
+#include <iostream>
 #include <graphics.h>
+
+using namespace std;
+
 void drawline(int x0, int y0, int x1, int y1)
 {
     int dx, dy, p, x, y;
@@ -28,10 +31,10 @@ int main()
 {
     int gdriver = DETECT, gmode, error, x0, y0, x1, y1;
     initgraph(&gdriver, &gmode, (char *)"");
-    printf("Enter co-ordinates of first point: ");
-    scanf("%d%d", &x0, &y0);
-    printf("Enter co-ordinates of second point: ");
-    scanf("%d%d", &x1, &y1);
+    cout << "Enter co-ordinates of first point: " << endl;
+    cin >> x0 >> y0;
+    cout << "Enter co-ordinates of second point: " << endl;
+    cin >> x1 >> y1;
     drawline(x0, y0, x1, y1);
     getch();
     closegraph();
