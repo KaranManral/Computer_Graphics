@@ -1,77 +1,41 @@
-#include <graphics.h>
 #include <iostream>
+#include <graphics.h>
 using namespace std;
 
-void mid_pt_circle(int a, int b, int rad)
+int main()
 {
-    int x = 0, y = rad, p;
-    putpixel(a, b + rad, GREEN);
-
-    if (rad > 0)
-    {
-        putpixel(a, b - rad, GREEN);
-        putpixel(a - rad, b, GREEN);
-        putpixel(a + rad, b, GREEN);
-    }
-    p = 1 - rad;
+    int gd = DETECT, gm;             // initalize graphics drivers and graphics mode
+    initgraph(&gd, &gm, (char *)""); // initialize graph
+    int xc, yc, x, y, r, d;
+    cout << "\n\n______________________Mid Point circle Drawing    Algorithm___________________________\n\n";
+    cout << "Enter co-ordinates of Center of Circle -> ";
+    cin >> xc >> yc;
+    cout << "Enter Radius of Circle -> ";
+    cin >> r;
+    d = (5 / 4) - r;
+    x = 0;
+    y = r;
     while (x <= y)
     {
-        if (p <= 0)
+        putpixel(xc + x, yc + y, GREEN);
+        putpixel(xc - x, yc + y, GREEN);
+        putpixel(xc - x, yc - y, GREEN);
+        putpixel(xc + x, yc - y, GREEN);
+        putpixel(xc + y, yc + x, GREEN);
+        putpixel(xc + y, yc - x, GREEN);
+        putpixel(xc - y, yc - x, GREEN);
+        putpixel(xc - y, yc + x, GREEN);
+        if (d < 0)
         {
-            p += (2 * x) + 1;
+            d = d + 2 * x + 3;
         }
         else
         {
-            p += (2 * (x - y)) + 1;
-            y--;
+            d = d + 2 * (x - y) + 5;
+            y = y - 1;
         }
-        x++;
-        putpixel(a + x, b + y, GREEN);
-        putpixel(a - x, b + y, GREEN);
-        putpixel(a + x, b - y, GREEN);
-        putpixel(a - x, b - y, GREEN);
-        putpixel(a + y, b + x, GREEN);
-        putpixel(a - y, b + x, GREEN);
-        putpixel(a + y, b - x, GREEN);
-        putpixel(a - y, b - x, GREEN);
+        x = x + 1;
     }
-}
-int main()
-{
-    cout << "\n\n\t ---------------------- MID POINT CICLE DRAW ALGORITHM --------------------- ";
-
-    int gdriver = DETECT, gmode, errorcode;
-
-    initgraph(&gdriver, &gmode, (char *)"");
-
-    errorcode = graphresult();
-
-    if (errorcode != grOk)
-    {
-        printf("Graphics error: %s\n", grapherrormsg(errorcode));
-        printf("Press any key to halt:");
-        getch();
-        exit(1);
-    }
-    int x_center, y_center, radius;
-    char choice = 'y';
-    do
-    {
-        cout << "\n\n\n\t Enter the Coordinates of circle (x and y) :: ";
-        cin >> x_center >> y_center;
-        cout << "\n\t Enter the radius of the circle :: ";
-        cin >> radius;
-        if (radius < 0)
-        {
-            cout << "\n\t Radius can't be negative !!";
-            exit(1);
-        }
-
-        mid_pt_circle(x_center, y_center, radius);
-        cout << "\n\t\t do you want to continue ?? (y/n) :: ";
-        cin >> choice;
-    } while (choice == 'y');
     getch();
-
-    return 0;
+    closegraph();
 }

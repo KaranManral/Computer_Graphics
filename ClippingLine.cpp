@@ -1,38 +1,41 @@
-#include <graphics.h>
-#include <conio.h>
+// 200 200 400 400
+// 100 300 350 300
 #include <iostream>
+#include <graphics.h>
+#include <cmath>
 using namespace std;
 
-static int Left = 1, rt = 2, btm = 4, top = 8, xmin, ymin, xmax, ymax;
+static int LEFT = 1, RIGHT = 2, BOTTOM = 4, TOP = 8, xmin, ymin, xmax, ymax;
+
 int getcode(int x, int y)
 {
     int code = 0;
     if (y > ymax)
-        code = top;
+        code = TOP;
     if (y < ymin)
-        code = btm;
+        code = BOTTOM;
     if (x < xmin)
-        code = Left;
+        code = LEFT;
     if (x > xmax)
-        code = rt;
+        code = RIGHT;
     return code;
 }
 int main()
 {
     int gd = DETECT, gm;
-    initwindow(1800, 900);
-    // initgraph(&gd, &gm, (char *)"");
+    initgraph(&gd, &gm, (char *)"");
     setcolor(WHITE);
-    cout << "\n\t Enter Window Minimum & Maximum Vlaues :: ";
+    cout << "\n\nEnter coordinates of Clipping window -> ";
     cin >> xmin >> ymin >> xmax >> ymax;
+    setcolor(2);
     rectangle(xmin, ymin, xmax, ymax);
-
+    int a[4], b[4];
     int x1, y1, x2, y2;
-    cout << "\n\t Enter The Endpoints of the Line :: ";
+    cout << "\n\nEnter the end points of line -> ";
     cin >> x1 >> y1 >> x2 >> y2;
+    setcolor(WHITE);
     line(x1, y1, x2, y2);
     getch();
-
     int outcode1 = getcode(x1, y1), outcode2 = getcode(x2, y2);
     int accept = 0;
     while (1)
@@ -49,7 +52,8 @@ int main()
         }
         else
         {
-            int x, y, temp;
+            int x, y;
+            int temp;
             if (outcode1 == 0)
             {
                 temp = outcode2;
@@ -58,22 +62,22 @@ int main()
             {
                 temp = outcode1;
             }
-            if (temp & top)
+            if (temp & TOP)
             {
                 x = x1 + (ymax - y1) / m;
                 y = ymax;
             }
-            else if (temp & btm)
+            else if (temp & BOTTOM)
             {
                 x = x1 + (ymin - y1) / m;
                 y = ymin;
             }
-            else if (temp & Left)
+            else if (temp & LEFT)
             {
                 x = xmin;
                 y = y1 + m * (xmin - x1);
             }
-            else if (temp & rt)
+            else if (temp & RIGHT)
             {
                 x = xmax;
                 y = y1 + m * (xmax - x1);
@@ -92,12 +96,12 @@ int main()
             }
         }
     }
-    cout << "\n\t AFTER CLIPPING :: - ";
+    cout << "\n\n\t\t-----------------------------After Clipping-------------------------\n\n";
     if (accept)
     {
         cleardevice();
         rectangle(xmin, ymin, xmax, ymax);
-        setcolor(RED);
+        setcolor(YELLOW);
         line(x1, y1, x2, y2);
     }
     getch();

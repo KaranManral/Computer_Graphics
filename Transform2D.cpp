@@ -103,7 +103,7 @@ int main()
     {
         cout << "\n\n\t\t1.)TRANSLATION."
              << "\n\n\t\t2.)ROTATION."
-             << "\n\n\t\t2.)SCALING.";
+             << "\n\n\t\t3.)SCALING.";
         cout << "\n\n\t------------->Enter your choice -> ";
         cin >> n;
         if (n == 1)
